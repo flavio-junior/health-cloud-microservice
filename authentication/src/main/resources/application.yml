@@ -1,0 +1,27 @@
+email:
+  password-recover:
+    token:
+      minutes: ${PASSWORD_RECOVER_TOKEN_MINUTES:5}
+    uri: ${PASSWORD_RECOVER_URI:http://localhost:5173/recover-password/}
+security:
+  jwt:
+    token:
+      secret-key:  53cr37
+      expire-length: ${EXPIRE_TOKEN_TIME_AUTH0:7}
+spring:
+  application:
+    name: auth0-with-spring-boot-kotlin
+  mail:
+    host: ${EMAIL_HOST_AUTH0:smtp.gmail.com}
+    port: ${EMAIL_PORT_AUTH0:587}
+    username: ${ACCOUNT_USERNAME_AUTH0}
+    password: ${ACCOUNT_PASSWORD_AUTH0}
+    properties:
+      mail:
+        debug: false
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  profiles:
+    active: ${APP_PROFILE:test}
