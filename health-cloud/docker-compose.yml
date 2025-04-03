@@ -1,0 +1,44 @@
+services:
+  db-health-cloud:
+    image: postgres:17
+    container_name: db_health_cloud_postgres_17
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db_health_cloud
+    ports:
+      - "5332:5432"
+    expose:
+      - 5332
+    networks:
+      - health-cloud-network
+    volumes:
+      - health-cloud-data:/var/lib/postgresql/data
+
+  pg-admin:
+    image: dpage/pgadmin4
+    container_name: health_cloud_pgadmin_4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: john.doe@example.com
+      PGADMIN_DEFAULT_USER: john
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5353:80"
+    expose:
+      - 5353
+    depends_on:
+      - db-health-cloud
+    networks:
+      - health-cloud-network
+    volumes:
+      - health-cloud-pgadmin-data:/var/lib/pgadmin/data
+
+volumes:
+  health-cloud-data:
+  health-cloud-pgadmin-data:
+
+networks:
+  health-cloud-network:
+    driver: bridge

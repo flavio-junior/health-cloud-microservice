@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: Health Cloud
+  profiles:
+    active: ${APP_PROFILE:test}
+server:
+  port: 8081
