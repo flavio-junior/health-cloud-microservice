@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.net.URI
 
 @RestController
-@RequestMapping(value = ["/api/health/cloud/patient"])
+@RequestMapping(value = ["/api/health/cloud/patient/v1"])
 class PatientController {
 
     @Autowired
@@ -24,6 +24,11 @@ class PatientController {
 
     @Autowired
     private lateinit var patientService: PatientService
+
+    @GetMapping
+    fun findAllPatients(): ResponseEntity<List<PatientResponseVO>> {
+        return ResponseEntity.ok(patientService.findAllPatients())
+    }
 
     @PostMapping(value = ["/{cep}"])
     fun savePatient(
